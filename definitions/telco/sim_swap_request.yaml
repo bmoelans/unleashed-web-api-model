@@ -10,6 +10,7 @@ properties:
     enum:
       - theft
       - loss
+      - silent_imsi
       - other
   password:
     type: string
