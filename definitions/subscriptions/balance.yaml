@@ -59,22 +59,46 @@ properties:
         valid_until:
           type: string
           format: date-time
-        total:
-          type: number
-          format: float
+        allowances:
           description: >
-             total amount usable in this bundle.  If this value is zero, the bundle can be considered unlimited in its
-             timeframe.
-        remaining:
-          description: >
-            This is the amount left in your bundle.
-          type: number
-          format: float
-        used:
-          description: >
-            This is the amount of your bundle that is used.
-          type: number
-          format: float
+            A list of the allowances for the given bundle. For a given situation you can have different allowance.
+            E.g. you are allowed to us less when roaming or you'll have a fair use allowance when your main bundle has been used
+          type: array
+          items:
+            type: object
+            required:
+              - situation
+              - total
+              - remaining
+              - user
+            properties:
+              situation:
+                type: string
+                enum:
+                  - main
+                  - roaming
+                  - fup
+                description: >
+                  The situation that will have a different allowance.
+                  main: your main allowance of this resource in this bundle
+                  roaming: when roaming you can use a different amount of this resources in this bundle
+                  fup: when your main allowance is depleted you will be use from this bucket.
+              total:
+                type: number
+                format: float
+                description: >
+                   total amount usable in this bundle for this allowance.
+                   timeframe.
+              remaining:
+                description: >
+                  This is the amount left in your bundle for this allowance.
+                type: number
+                format: float
+              used:
+                description: >
+                  This is the amount of your bundle that is used of this allowance.
+                type: number
+                format: float
         type:
           type: string
           enum:
